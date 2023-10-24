@@ -1,12 +1,16 @@
+import logging
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 import time
 
-s=Service("C:/Users/jakub/Downloads/chromedriver_win32 (3)/chromedriver.exe")
-driver = webdriver.Chrome(service = s)
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 url = "https://www.saucedemo.com/"
 driver.get(url)
+
+logging.basicConfig(level=logging.INFO)
+
 
 
 def test_sel():
@@ -35,7 +39,7 @@ def test_sel():
     field.click()
     time.sleep(3)
 
-    a_z = driver.find_element(By.XPATH, '//*[@id="header_container"]/div[2]/div[2]/span/select/option[3]')
+    a_z = driver.find_element(By.XPATH, '/html/body/div/div/div/div[1]/div[2]/div/span/select/option[3]')
     a_z.click()
     time.sleep(5)
 
@@ -80,11 +84,10 @@ def test_sel():
     info2 = driver.find_element(By.CLASS_NAME, 'summary_total_label')
     time.sleep(5)
 
-    order1 = driver.find_element(By.CLASS_NAME, 'inventory_item_name')
 
-    print(summm.text)
-    print(info1.text)
-    print(info2.text)
+    logging.info(summm.text)
+    logging.info(info1.text)
+    logging.info(info2.text)
 
     finish_button = driver.find_element(By.ID, 'finish')
     finish_button.click()
@@ -94,3 +97,5 @@ def test_sel():
     back_button.click()
 
     driver.quit()
+
+test_sel()
